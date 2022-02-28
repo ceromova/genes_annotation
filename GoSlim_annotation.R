@@ -106,3 +106,6 @@ print("Fin del Script.")
 #ggplot(contar_filtro, aes(ID, Count, fill=ONTOLOGY), split='ONTOLOGY') + geom_col()  + 
 #  theme(axis.text.x=element_text(angle=-40, hjust=0)) + facet_grid(.~ONTOLOGY, scale="free_x")
 
+#ggplot(data = contar_filtro, aes(df, Freq, fill = NULL, hjust = -0.7)) + labs(title = "Número de genes por término de GOSlim", x = "Términos de GOSlim", y = "Número de genes", fill="Términos de GOSlim") + theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold"), axis.text.x = element_text(angle = 90, hjust = 1)) + theme(plot.title = element_text(hjust = 0.5, color = "black", size = 20, face = "bold"))
+
+
