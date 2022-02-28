@@ -79,8 +79,8 @@ for (fichero in lista){
       df_anotacion = rbind(df_anotacion, total_anotacion)}}
 
   #Guardamos el nombre del fichero del alumno anotado
-  nombre_alumno = substr(fichero, 0, nchar(fichero)-4)
-  nombre_salida = paste0("ficheros_anotados/",nombre_alumno,"_anotado.txt")
+  nombre_fichero = substr(fichero, 0, nchar(fichero)-4)
+  nombre_salida = paste0("ficheros_anotados/",nombre_fichero,"_anotado.txt")
   fichero_salida=file(nombre_salida)
   #writeLines(header,fichero_salida) #Opcion para poner encabezado
   fichero_salida = write.table(df_anotacion, file = nombre_salida, 
@@ -93,19 +93,17 @@ print("Fin del Script.")
 #* GENERACION DE GRAFICAS                                                     **
 #*******************************************************************************
 
-#library(ggplot2)
-#library(plyr)
+library(ggplot2)
+library(dplyr)
 
-#vector = read.csv("/home/ceromova/Escritorio/goslim.txt",sep="\t",header=TRUE)
-#df = as.data.frame(vector[3])
-#contar = count(df, vars = NULL, wt_var = NULL)
-#contar_filtro = subset(contar, contar$freq > 19)
+vector = read.csv("C:/Users/celes/Desktop/gene_list_info/ficheros_anotados/A_B_anotado.txt",sep="\t",header=TRUE)
+df = as.data.frame(vector[3])
+contar = as.data.frame(table(df))
+contar_filtro = subset(contar, contar$Freq > 0) #Añadir el corte de frecuencia de aparicion del termino
 
-#ggplot(data = contar_filt) + geom_histogram(aes(x=contar_filtro$freq))
+#For palette choices:
+RColorBrewer::display.brewer.all()
 
-#ggplot(contar_filtro, aes(ID, Count, fill=ONTOLOGY), split='ONTOLOGY') + geom_col()  + 
-#  theme(axis.text.x=element_text(angle=-40, hjust=0)) + facet_grid(.~ONTOLOGY, scale="free_x")
-
-#ggplot(data = contar_filtro, aes(df, Freq, fill = NULL, hjust = -0.7)) + labs(title = "Número de genes por término de GOSlim", x = "Términos de GOSlim", y = "Número de genes", fill="Términos de GOSlim") + theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold"), axis.text.x = element_text(angle = 90, hjust = 1)) + theme(plot.title = element_text(hjust = 0.5, color = "black", size = 20, face = "bold"))
+ggplot(data = contar_filtro) + geom_col(mapping = aes(df, Freq, fill = df)) + scale_fill_brewer(palette = "Pastel1") + labs(title = "Número de genes por término de GOSlim", x = "Términos de GOSlim", y = "Número de genes", fill="Términos de GOSlim") + theme(axis.text=element_text(size=12), axis.title=element_text(size=14,face="bold"), axis.text.x = element_text(angle = 70, hjust = 1)) + theme(plot.title = element_text(hjust = 0.5, color = "black", size = 20, face = "bold"))
 
 
